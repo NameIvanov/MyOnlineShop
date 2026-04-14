@@ -5,19 +5,18 @@ using MyOnlineShop.Models;
 
 namespace MyOnlineShop.Controllers
 {
-    public class HomeController : Controller
+    public class BasketController : Controller
     {
-        ProductRepository productRepository = new ProductRepository();
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        BasketRepository basketRepository = new BasketRepository();
+        public BasketController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            var products = productRepository.GetAll();
+            var products = basketRepository.GetAll();
             return View(products);
         }
 

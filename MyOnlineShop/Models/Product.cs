@@ -7,6 +7,7 @@
         public int Cost { get; set; }
         public string Description { get; set; }
 
+        public string Image { get; set; } = "/images/ProductCart.jpg";
         public Product(string name, int cost, string description)
         {
             Name = name;

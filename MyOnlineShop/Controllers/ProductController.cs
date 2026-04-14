@@ -5,20 +5,20 @@ using MyOnlineShop.Models;
 
 namespace MyOnlineShop.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
-        ProductRepository productRepository = new ProductRepository();
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        ProductRepository repositore = new ProductRepository();
+        public ProductController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(Guid id)
         {
-            var products = productRepository.GetAll();
-            return View(products);
+            var product = repositore.GetById(id);
+            if (product == null) return null;
+            return View(product);
         }
 
         public IActionResult Privacy()
