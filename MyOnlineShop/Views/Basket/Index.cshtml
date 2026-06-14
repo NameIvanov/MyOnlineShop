@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<Basket>
 @{
     ViewData["Title"] = "Product Page";
 }
@@ -23,10 +23,24 @@
                     {
                         <tr align="center">
                             <td class="fw-bold">@(i+1)</td>
-                            <td align="left">""</td>
-                            <td align="left">ЦЕНА_ТОВАРА</td>
-                            <td>КОЛИЧЕСТВО_ТОВАРА</td>
-                            <td class="fw-bold">СТОИМОСТЬ_ТОВАРА</td>
+                            <td align="left">"@(Model[i].NameProduct)"</td>
+                            <td align="left">@(Model[i].CostProduct)</td>
+                            <td>
+                                <a class="btn btn-success me-2"
+                                   asp-controller="Basket"
+                                   asp-action="Minus"
+                                   asp-route-id="@Model[i].Id">
+                                    -
+                                </a>
+                                @(Model[i].CountProduct)
+                                <a class="btn btn-success ms-2"
+                                   asp-controller="Basket"
+                                   asp-action="Plus"
+                                   asp-route-id="@Model[i].Id">
+                                    +
+                                </a>
+                            </td>
+                            <td class="fw-bold">@(Model[i].CostProduct * Model[i].CountProduct)</td>
                         </tr>
                     }
                 </tbody>
@@ -34,13 +48,20 @@
                     <tr align="center">
                         <th colspan="2"></th>
                         <th colspan="2">
-                            Общая стоимость: ОБЩАЯ_СТОИМОСТЬ_ТОВАРА
+                            Общая стоимость: @Model.Sum(p => p.CostProduct * p.CountProduct)
                         </th>
                         <th colspan="1">
                             <a class="btn btn-success"
-                               asp-controller="Cart"
-                               asp-action="Index">
+                               asp-controller="Basket"
+                               asp-action="PlaceOrder">
                                 Оформить заказ
+                            </a>
+                        </th>
+                        <th colspan="1">
+                            <a class="btn btn-success"
+                               asp-controller="Basket"
+                               asp-action="Delete">
+                                Очистить корзину
                             </a>
                         </th>
                     </tr>

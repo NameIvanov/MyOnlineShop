@@ -19,6 +19,11 @@
                         <h2 class="text-danger">@product.Cost</h2>
                         <h1 class="text-danger">@product.Description</h1>
                         <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="btn btn-success" >Подробнее</a>
+                        <a asp-controller="Favourite" 
+                         asp-action="Add"
+                         asp-route-name="@product.Name" 
+                         asp-route-cost="@product.Cost"
+                         asp-route-description="@product.Description" class="btn btn-success">Добавить в избранное</a>
                     </div>
                 </div>
             </div>

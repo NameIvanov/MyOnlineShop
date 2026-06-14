@@ -2,7 +2,7 @@
 
 namespace MyOnlineShop.Data
 {
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
         private static List<Product> products = new List<Product>()
         {

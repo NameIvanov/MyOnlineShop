@@ -1,0 +1,70 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Избранное";
+}
+
+<div class="text-center text-uppercase text-success mb-5 mt-5">
+    <h2 class="row-title">Избранное</h2>
+</div>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="row justify-content-center mt-3">
+        @foreach (var product in Model)
+        {
+            <div class="col-3 mb-3">
+                <div class="card shadow">
+                    <img class="card-img-top" src="@product.Image" alt="...">
+                    <div class="card-body text-center">
+                        <a class="text-success"
+                           asp-controller="КОНТРОЛЛЕР"
+                           asp-action="МЕТОД_КОНТРОЛЛЕРА"
+                           asp-route-id="ID_ТОВАРА">
+                            <h5>@product.Name</h5>
+                        </a>
+                        <h2 class="text-danger">@product.Cost</h2>
+                        <hr />
+                        <h6>@product.Description</h6>
+                        <hr />
+                        <a class="btn btn-success"
+                           asp-controller="Basket"
+                           asp-action="Add"
+                           asp-route-nameProduct="@product.Name"
+                           asp-route-costProduct="@product.Cost">
+                            Добавить в корзину
+                        </a>
+                        <a class="btn btn-outline-danger mt-3"
+                           asp-controller="Favourite"
+                           asp-action="Delete"
+                           asp-route-productId="@product.Id">
+                            Убрать из избранного
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="text-center mt-5">
+            <a class="btn btn-outline-danger"
+               asp-controller="Favourite"
+               asp-action="Clear">
+                Очистить список избранного
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h2 class="row-title">В списке избранного нет товаров!</h2>
+    </div>
+
+}
+
+<div class="text-center m-5">
+    <a class="btn btn-outline-success"
+       asp-controller="Home"
+       asp-action="Index">
+        Продолжить покупки
+    </a>
+</div>

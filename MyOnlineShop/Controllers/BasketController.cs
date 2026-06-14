@@ -8,21 +8,41 @@ namespace MyOnlineShop.Controllers
     public class BasketController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        BasketRepository basketRepository = new BasketRepository();
-        public BasketController(ILogger<HomeController> logger)
+        IBasketRepository _basketRepository;
+        public BasketController(IBasketRepository basketRepository)
         {
-            _logger = logger;
+            _basketRepository = basketRepository;
         }
 
         public IActionResult Index()
         {
-            var products = basketRepository.GetAll();
+            var products = _basketRepository.GetAll();
             return View(products);
         }
-
-        public IActionResult Privacy()
+        public IActionResult Add(string nameProduct, int costProduct)
         {
-            return View();
+            _basketRepository.Add(new Basket(nameProduct, 1, costProduct));
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete()
+        {
+            _basketRepository.Delete();
+            return RedirectToAction("Index");
+        }
+        public IActionResult Plus(Guid Id)
+        {
+            _basketRepository.Plus(Id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Minus(Guid Id)
+        {
+            _basketRepository.Minus(Id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult PlaceOrder()
+        {
+            var products = _basketRepository.GetAll();
+            return View(products);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

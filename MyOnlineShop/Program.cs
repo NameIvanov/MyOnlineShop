@@ -1,7 +1,12 @@
+using MyOnlineShop.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IBasketRepository, BasketRepository>();
+builder.Services.AddSingleton<IProductRepository,ProductRepository>();
+builder.Services.AddSingleton<IFavouriteRepository, FavouriteRepository>();
 
 var app = builder.Build();
 

@@ -8,15 +8,15 @@ namespace MyOnlineShop.Controllers
     public class ProductController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        ProductRepository repositore = new ProductRepository();
-        public ProductController(ILogger<HomeController> logger)
+        IProductRepository _productRepository;
+        public ProductController(IProductRepository productRepository)
         {
-            _logger = logger;
+            _productRepository = productRepository;
         }
 
         public IActionResult Index(Guid id)
         {
-            var product = repositore.GetById(id);
+            var product = _productRepository.GetById(id);
             if (product == null) return null;
             return View(product);
         }
